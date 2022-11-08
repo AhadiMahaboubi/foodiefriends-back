@@ -25,7 +25,7 @@ public class User implements Serializable{
 	
 	private String first_name;
 	private String middle_name;
-	private Date age;
+	private Date birthdate;
 	private String login;
 	private String password;
 	private String email;
