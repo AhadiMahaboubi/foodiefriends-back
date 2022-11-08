@@ -2,10 +2,10 @@ package fr.foodiefriends.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,9 +25,22 @@ public class User implements Serializable{
 	
 	private String first_name;
 	private String middle_name;
+
+	@Temporal(TemporalType.DATE)
 	private Date birthdate;
+
+	@Column(unique = true)
 	private String login;
 	private String password;
-	private String email;
-}
 
+	@Column(unique = true)
+	private String email;
+
+	@ManyToMany
+	@JoinTable(
+			name="user_yuck",
+			joinColumns = @JoinColumn(name="user.id"),
+			inverseJoinColumns = @JoinColumn(name="yuck.id")
+	)
+	private Set<Yuck> yucks = new HashSet<>();
+}
